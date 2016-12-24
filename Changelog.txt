@@ -1,4 +1,10 @@
 Changelog for PSJsonCredential
 
+v0.1.0
+updated manifest
+updated README
+created help markdown documents
+created external help
+
 v0.0.9
 initial build
