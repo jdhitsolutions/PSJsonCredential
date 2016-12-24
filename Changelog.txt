@@ -1,0 +1,4 @@
+Changelog for PSJsonCredential
+
+v0.0.9
+initial build
