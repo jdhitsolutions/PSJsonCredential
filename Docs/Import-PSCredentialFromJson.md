@@ -34,7 +34,7 @@ Import the credential from the JSON file. Normally you would save this to a vari
 ## PARAMETERS
 
 ### -Path
-Enter the name of a json file
+Enter the name of a json file.
 
 ```yaml
 Type: String
@@ -55,7 +55,7 @@ Accept wildcard characters: False
 ### PSCredential
 
 ## NOTES
-v1.0.0
+v1.1.0
 
 Learn more about PowerShell:
 http://jdhitsolutions.com/blog/essential-powershell-resources/

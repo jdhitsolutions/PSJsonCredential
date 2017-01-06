@@ -6,7 +6,7 @@ $modroot = Split-Path (Split-path $MyInvocation.MyCommand.Path)
 
 Write-host "Importing moduling from $modroot" -ForegroundColor Cyan
 
-import-module $modRoot -force
+Import-Module $modRoot -force
 
 InModuleScope PSJsonCredential {
 
@@ -69,6 +69,10 @@ Describe Get {
     
     It "Should have an ExportComputer property of $($env:computername)" {
         $script:get.exportComputer | Should Be $Env:computername
+    }
+
+    It "Should have a path property of $json" {
+        $script:get.path | Should Be $json
     }
 }
 

@@ -140,7 +140,7 @@ Accept wildcard characters: False
 
 ## NOTES
 
-v1.0.0
+v1.1.0
 
 Learn more about PowerShell:
 http://jdhitsolutions.com/blog/essential-powershell-resources/

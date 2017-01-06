@@ -128,8 +128,7 @@ else {
 )
 
 Begin {
-    Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.Mycommand)"  
-   
+    Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.Mycommand)"     
 } #begin
 
 Process {
@@ -143,7 +142,8 @@ Process {
     $in | Select Username,Password,
     @{Name = "ExportDate";Expression = {$_.metadata.ExportDate}},
     @{Name = "ExportUser";Expression = {$_.metadata.ExportUser}},
-    @{Name = "ExportComputer";Expression = {$_.metadata.ExportComputer}}
+    @{Name = "ExportComputer";Expression = {$_.metadata.ExportComputer}},
+    @{Name = "Path";Expression = { (Convert-Path -Path $Path) }}
     
     } #process
 

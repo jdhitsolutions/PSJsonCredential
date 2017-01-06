@@ -33,6 +33,7 @@ Password       : 01000000d08c9ddf0115d1118c7a00c04fc297eb010000001368e9622137b24
 ExportDate     : 12/24/2016 11:01:14 AM
 ExportUser     : Desk01\Jeff
 ExportComputer : DESK01
+Path           : C:\scripts\admin.json
 ```
 
 
@@ -56,12 +57,11 @@ Accept wildcard characters: False
 ## INPUTS
 ### System.String
 
-
 ## OUTPUTS
 ### System.Object
 
 ## NOTES
-v1.0.0
+v1.1.0
 
 Learn more about PowerShell:
 http://jdhitsolutions.com/blog/essential-powershell-resources/
