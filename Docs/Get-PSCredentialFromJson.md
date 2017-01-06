@@ -54,12 +54,10 @@ Accept wildcard characters: False
 ```
 
 ## INPUTS
-
 ### System.String
 
 
 ## OUTPUTS
-
 ### System.Object
 
 ## NOTES

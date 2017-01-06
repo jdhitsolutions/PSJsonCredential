@@ -132,12 +132,10 @@ Accept wildcard characters: False
 ```
 
 ## INPUTS
-
 ### System.Management.Automation.PSCredential
 
 
 ## OUTPUTS
-
 ### System.Object
 
 ## NOTES

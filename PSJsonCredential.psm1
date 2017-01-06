@@ -1,6 +1,7 @@
 ﻿#requires -version 5.0
 
 Function Export-PSCredentialToJson {
+
 [cmdletbinding(SupportsShouldProcess)]
 Param(
 [Parameter(Position = 0, Mandatory, HelpMessage = "Enter the name of a json file")]
@@ -59,6 +60,7 @@ End {
 } #close Export-PSCredentialtoJson
 
 Function Import-PSCredentialFromJson {
+
 [cmdletbinding()]
 Param(
 [Parameter(Position = 0, Mandatory, HelpMessage = "Enter the name of a json file", ValueFromPipeline)]
@@ -109,6 +111,7 @@ End {
 } #close Import-PSCredentialFromJson
 
 Function Get-PSCredentialFromJson {
+
 [cmdletbinding()]
 Param(
 [Parameter(Position = 0, Mandatory, HelpMessage = "Enter the name of a json file", ValueFromPipeline)]

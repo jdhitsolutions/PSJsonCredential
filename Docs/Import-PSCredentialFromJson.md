@@ -49,12 +49,9 @@ Accept wildcard characters: False
 ```
 
 ## INPUTS
-
 ### System.String
 
-
 ## OUTPUTS
-
 ### PSCredential
 
 ## NOTES

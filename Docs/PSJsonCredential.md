@@ -7,11 +7,11 @@ Locale: en-US
 
 # PSJsonCredential Module
 ## Description
-A PowerShell module for exporting and importing a PSCredential to a JSON file 
+A PowerShell module for exporting and importing a PSCredential to a JSON file. 
 
 ## PSJsonCredential Cmdlets
 ### [Export-PSCredentialToJson](Export-PSCredentialToJson.md)
-Export a PSCredential to a JSON file
+Export a PSCredential to a JSON file.
 
 ### [Get-PSCredentialFromJson](Get-PSCredentialFromJson.md)
 Get credential information from a JSON file but without the converted password.

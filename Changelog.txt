@@ -1,5 +1,8 @@
 Changelog for PSJsonCredential
 
+v1.0.0
+public release to PSGallery
+
 v0.1.0
 updated manifest
 updated README
