@@ -147,6 +147,8 @@ http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 
 ## RELATED LINKS
+[http://bit.ly/Export-PSCredentialJson]()
+
 [Get-Credential]()
 
 [ConvertFrom-SecureString]()

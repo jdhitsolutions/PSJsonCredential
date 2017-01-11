@@ -1,5 +1,11 @@
 Changelog for PSJsonCredential
 
+v1.1.2
+Added links for online help
+Added link for updateable help
+Updated help documentation
+updated version number
+
 v1.1.1
 revised help
 
