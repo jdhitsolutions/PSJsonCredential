@@ -69,6 +69,9 @@ http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS
 [Get-Credential]()
+
 [ConvertFrom-SecureString]()
-[Import-PSCredentialFromJson](Import-PSCredentialFromJson)
-[Export-PSCredentialtoJson](Export-PSCredentialtoJson)
+
+[Import-PSCredentialFromJson](Import-PSCredentialFromJson.md)
+
+[Export-PSCredentialtoJson](Export-PSCredentialtoJson.md)

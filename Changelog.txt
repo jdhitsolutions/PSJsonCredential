@@ -1,5 +1,8 @@
 Changelog for PSJsonCredential
 
+v1.1.1
+revised help
+
 v1.1.0
 Added path to output from Get-PSJsonCredential (Issue #1)
 Updated documentation

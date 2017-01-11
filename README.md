@@ -3,7 +3,7 @@
 This PowerShell module contains a set of functions for storing a PSCredential object in a JSON file. 
 
 ## Release
-The most current version is 1.1.0 and is available on the PowerShell Gallery. Use PowerShell Get to install.
+The most current version is 1.1.1 and is available on the PowerShell Gallery. Use PowerShell Get to install.
 
     PS C:\> Install-Module PSJsonCredential
 
