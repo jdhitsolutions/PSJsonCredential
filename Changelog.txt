@@ -1,5 +1,9 @@
 Changelog for PSJsonCredential
 
+v1.1.3.0
+changed author in manifest
+changed to semantic version numbers
+
 v1.1.2
 Added links for online help
 Updated help documentation
