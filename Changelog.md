@@ -1,0 +1,44 @@
+# Changelog for PSJsonCredential
+
+## v1.2.0
+
++ code cleanup
++ revised license
++ fixed Pester test bugs
++ Updated `README.md`
++ Updated help
+
+## v1.1.3.0
+
++ changed author in manifest
++ changed to semantic version numbers
+
+## v1.1.2
+
++ Added links for online help
++ Updated help documentation
++ updated version number
+
+## v1.1.1
+
++ revised help
+
+## v1.1.0
+
++ Added path to output from `Get-PSJsonCredential` (Issue #1)
++ Updated documentation
+
+## v1.0.0
+
++ public release to PSGallery
+
+## v0.1.0
+
++ updated manifest
++ updated README
++ created help markdown documents
++ created external help
+
+## v0.0.9
+
++ initial build

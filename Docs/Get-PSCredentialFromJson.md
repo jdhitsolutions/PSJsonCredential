@@ -1,26 +1,30 @@
 ---
 external help file: PSJsonCredential-help.xml
-online link:
+online link: https://github.com/jdhitsolutions/PSJsonCredential/blob/master/Docs/Get-PSCredentialFromJson.md
 schema: 2.0.0
 ---
 
 # Get-PSCredentialFromJson
 
 ## SYNOPSIS
+
 Get stored credential information from a JSON file.
+
 ## SYNTAX
 
-```
+```yaml
 Get-PSCredentialFromJson [-Path] <String>
 ```
 
 ## DESCRIPTION
+
 This command will retrieve credential information from a JSON file created with Export-PSCredentialToJSON. The command will not convert the password but it will include the export metadata.
 
 ## EXAMPLES
 
 ### Example 1
-```
+
+```powershell
 PS C:\> Get-PSCredentialFromJson -path c:\scripts\admin.json
 
 UserName       : company\administrator
@@ -36,16 +40,16 @@ ExportComputer : DESK01
 Path           : C:\scripts\admin.json
 ```
 
-
 ## PARAMETERS
 
 ### -Path
-Enter the name of a json file
+
+Enter the name of a json file.
 
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: True
 Position: 0
@@ -55,19 +59,20 @@ Accept wildcard characters: False
 ```
 
 ## INPUTS
+
 ### System.String
 
 ## OUTPUTS
+
 ### System.Object
 
 ## NOTES
-v1.1.0
 
-Learn more about PowerShell:
-http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 
 ## RELATED LINKS
+
 [http://bit.ly/Get-PScredentialJson]()
 
 [Import-PSCredentialFromJson](Import-PSCredentialFromJson.md)
@@ -77,4 +82,3 @@ http://jdhitsolutions.com/blog/essential-powershell-resources/
 [Get-Credential]()
 
 [ConvertFrom-SecureString]()
-

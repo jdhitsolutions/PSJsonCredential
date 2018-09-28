@@ -1,5 +1,4 @@
-﻿#requires -version 5.0.0.0
-
+﻿
 Function Export-PSCredentialToJson {
 
 [cmdletbinding(SupportsShouldProcess,HelpUri="http://bit.ly/Export-PSCredentialJson")]
@@ -34,7 +33,7 @@ Process {
     Try {
 
         #create a custom object from the credential and convert it to JSON    
-        $Credential | Select Username,@{Name="Password";
+        $Credential | Select-Object Username,@{Name="Password";
         Expression = { $_.password | ConvertFrom-SecureString }},
         @{Name="metadata";Expression={ [pscustomobject]@{
             ExportDate = (Get-Date).Tostring()

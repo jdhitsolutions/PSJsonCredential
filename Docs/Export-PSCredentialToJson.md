@@ -1,21 +1,23 @@
 ---
 external help file: PSJsonCredential-help.xml
-online link:
+online link: https://github.com/jdhitsolutions/PSJsonCredential/blob/master/Docs/Export-PSCredentialToJson.md
 schema: 2.0.0
 ---
 
 # Export-PSCredentialToJson
 
 ## SYNOPSIS
+
 Export a PSCredential to a JSON file
 
 ## SYNTAX
 
-```
+```yaml
 Export-PSCredentialToJson [-Path] <String> -Credential <PSCredential> [-NoClobber] [-Passthru] [-WhatIf] [-Confirm]
 ```
 
 ## DESCRIPTION
+
 This command will take a PSCredential object and export it to a JSON file. The password will be converted from a secure string using native Windows crypto APIs. The converted password can only be re-converted on the original computer. The export process will also capture metadata information including the credential of the user who ran the export and the computername.
 
 The user name will still be in plain text so you should take the necessary steps to safeguard this file. 
@@ -25,14 +27,16 @@ NOTE: Storing any sort of credential to disk is a potential security risk and ma
 ## EXAMPLES
 
 ### Example 1
-```
+
+```powershell
 PS C:\> Export-PSCredentialToJson -path c:\scripts\admin.json -credential "company\administrator"
 ```
 
 Create a json file in the Scripts folder for the company\administrator credential. You will be prompted for the password.
 
 ### Example 2
-```
+
+```powershell
 PS C:\> $cred | Export-PSCredentialToJson -path c:\scripts\mycred.json
 ```
 
@@ -41,6 +45,7 @@ Pipe a previously created PSCredential to the export command.
 ## PARAMETERS
 
 ### -Confirm
+
 Prompts you for confirmation before running the cmdlet.
 
 ```yaml
@@ -56,7 +61,8 @@ Accept wildcard characters: False
 ```
 
 ### -Credential
-A PSCredential object
+
+A PSCredential object.
 
 ```yaml
 Type: PSCredential
@@ -71,6 +77,7 @@ Accept wildcard characters: False
 ```
 
 ### -NoClobber
+
 Do not overwrite an existing file.
 
 ```yaml
@@ -86,6 +93,7 @@ Accept wildcard characters: False
 ```
 
 ### -Passthru
+
 Display the json file object.
 
 ```yaml
@@ -101,6 +109,7 @@ Accept wildcard characters: False
 ```
 
 ### -Path
+
 Enter the name and path for the JSON file.
 
 ```yaml
@@ -116,8 +125,8 @@ Accept wildcard characters: False
 ```
 
 ### -WhatIf
-Shows what would happen if the cmdlet runs.
-The cmdlet is not run.
+
+Shows what would happen if the cmdlet runs. The cmdlet is not run.
 
 ```yaml
 Type: SwitchParameter
@@ -132,21 +141,20 @@ Accept wildcard characters: False
 ```
 
 ## INPUTS
+
 ### System.Management.Automation.PSCredential
 
 
 ## OUTPUTS
+
 ### System.Object
 
 ## NOTES
 
-v1.1.0
-
-Learn more about PowerShell:
-http://jdhitsolutions.com/blog/essential-powershell-resources/
-
+Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS
+
 [http://bit.ly/Export-PSCredentialJson]()
 
 [Get-Credential]()

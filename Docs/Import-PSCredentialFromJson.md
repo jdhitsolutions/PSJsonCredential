@@ -1,26 +1,30 @@
 ---
 external help file: PSJsonCredential-help.xml
-online link:
+online link: https://github.com/jdhitsolutions/PSJsonCredential/blob/master/Docs/Import-PSCredentialFromJson.md
 schema: 2.0.0
 ---
 
 # Import-PSCredentialFromJson
 
 ## SYNOPSIS
+
 Import a stored credential from a JSON file.
 
 ## SYNTAX
 
-```
+```yaml
 Import-PSCredentialFromJson [-Path] <String>
 ```
 
 ## DESCRIPTION
+
 This command will import a stored PSCredential object from a JSON file. It is assumed the JSON file was created with Export-PSCredentialtoJSON. This command will only work on the same computer where you exported the credential.
+
 ## EXAMPLES
 
 ### Example 1
-```
+
+```powershell
 PS C:\> Import-PSCredentialFromJson -Path c:\scripts\admin.json
 
 UserName                                  Password
@@ -34,12 +38,13 @@ Import the credential from the JSON file. Normally you would save this to a vari
 ## PARAMETERS
 
 ### -Path
+
 Enter the name of a json file.
 
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: True
 Position: 0
@@ -49,19 +54,19 @@ Accept wildcard characters: False
 ```
 
 ## INPUTS
+
 ### System.String
 
 ## OUTPUTS
+
 ### PSCredential
 
 ## NOTES
-v1.1.0
 
-Learn more about PowerShell:
-http://jdhitsolutions.com/blog/essential-powershell-resources/
-
+Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS
+
 [http://bit.ly/Import-PSCredentialJson]()
 
 [Get-Credential]()
