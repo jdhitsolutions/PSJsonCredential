@@ -30,7 +30,6 @@ PS C:\> Import-PSCredentialFromJson -Path c:\scripts\admin.json
 UserName                                  Password
 --------                                  --------
 company\administrator System.Security.SecureString
-
 ```
 
 Import the credential from the JSON file. Normally you would save this to a variable so you could re-use it in your PowerShell session.
@@ -39,7 +38,7 @@ Import the credential from the JSON file. Normally you would save this to a vari
 
 ### -Path
 
-Enter the name of a json file.
+Enter the name and path of a json file.
 
 ```yaml
 Type: String

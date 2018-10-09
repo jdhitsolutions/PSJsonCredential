@@ -147,7 +147,9 @@ Accept wildcard characters: False
 
 ## OUTPUTS
 
-### System.Object
+### None
+
+### System.IO.FileInfo
 
 ## NOTES
 

@@ -1,5 +1,11 @@
 # Changelog for PSJsonCredential
 
+## v1.3.0
+
++ Added parameter validation to `Path` in `Export-PSCredentialToJson` for .json extension
++ Fixed a new bug with an apparent change in `ConvertFrom-Json`. Password value was no longer a simple string.
++ Code cleanup
+
 ## v1.2.0
 
 + code cleanup

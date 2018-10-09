@@ -4,7 +4,7 @@ This PowerShell module contains a set of functions for storing a PSCredential ob
 
 ## Release
 
-The most current version is available on the PowerShell Gallery. 
+The most current version is available on the PowerShell Gallery.
 
 ```powershell
 PS C:\> Install-Module PSJsonCredential
@@ -35,9 +35,9 @@ PS C:\> get-content C:\work\admin.json
 59c03f0cb78b8b9c047a80658701231561193ed8624a5d0769b527bd7026ab400000005346e70d38eeffc2031564eea669d9db98
 3a65acbb4bbfc27b9715056eeb42b083badca75687b6feb89794c7570cf565758295cb2fae4fdc98d332601c96e270",
     "metadata":  {
-                     "ExportDate":  "12/24/2016 10:33:31 AM",
-                     "ExportUser":  "WIN81-ENT-01\\Jeff",
-                     "ExportComputer":  "WIN81-ENT-01"
+                     "ExportDate":  "12/24/2017 10:33:31 AM",
+                     "ExportUser":  "Company\\Jeff",
+                     "ExportComputer":  "WIN10-ENT-01"
                  }
 }
 ```
@@ -55,9 +55,9 @@ Password       : 01000000d08c9ddf0115d1118c7a00c04fc297eb010000001368e9622137b24
                     c11f33219670b6463facc3058b200000007959c03f0cb78b8b9c047a80658701231561193ed8624a5d0769
                     b527bd7026ab400000005346e70d38eeffc2031564eea669d9db983a65acbb4bbfc27b9715056eeb42b083
                     badca75687b6feb89794c7570cf565758295cb2fae4fdc98d332601c96e270
-ExportDate     : 12/24/2016 10:33:31 AM
-ExportUser     : WIN81-ENT-01\Jeff
-ExportComputer : WIN81-ENT-01
+ExportDate     : 12/24/2017 10:33:31 AM
+ExportUser     : Company\Jeff
+ExportComputer : WIN10-ENT-01
 Path           : C:\work\admin.json
 ```
 
@@ -67,14 +67,6 @@ And when you are ready you can import the credential.
 PS C:\> $in = Import-PSCredentialFromJson -Path C:\work\admin.json -Verbose
 VERBOSE: [BEGIN  ] Starting: Import-PSCredentialFromJson
 VERBOSE: [PROCESS] Processing credential from C:\work\admin.json
-VERBOSE: [PROCESS] PSBoundParameters: 
-
-        Key     Value
-        ---     -----
-        Path    C:\work\admin.json
-        Verbose True
-
-
 VERBOSE: [PROCESS] Converting to System.Security.SecureString
 VERBOSE: [PROCESS] Creating credential for Company\Administrator
 VERBOSE: [END    ] Ending: Import-PSCredentialFromJson
@@ -102,4 +94,4 @@ Storing any credential to disk poses a potential security risk. It is up to you 
 
 #### *Use with caution and at your own risk.*
 
-*Last updated 28 September 2018*
+*Last updated 9 October 2018*
