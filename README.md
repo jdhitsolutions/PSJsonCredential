@@ -1,6 +1,6 @@
 # PSJsonCredential
 
-This PowerShell module contains a set of functions for storing a PSCredential object in a JSON file.
+This PowerShell module contains a set of functions for storing a PSCredential object in a JSON file. This will only work on Windows-based systems.
 
 ## Release
 
@@ -84,7 +84,7 @@ PSM@g1ck
 
 ## Is It Safe?
 
-The commands use the secure string convert cmdlets. These cmdlet rely on Windows crypto APIs to properly convert a secure string. The converted string can only be decrypted on the original computer. If the file is copied to another computer, the `ConvertTo-SecureString` command will fail.
+The commands use the secure string convert cmdlets. These cmdlet rely on Windows crypto APIs to properly convert a secure string. The converted string can only be decrypted on the original computer. If the file is copied to another computer, the `ConvertTo-SecureString` command will fail. 
 
 Because the json file is a plain text file, the user name will be visible. You should still take precautions to secure the json file.
 
@@ -94,4 +94,4 @@ Storing any credential to disk poses a potential security risk. It is up to you 
 
 #### *Use with caution and at your own risk.*
 
-*Last updated 9 October 2018*
+*Last updated 23 October 2018*

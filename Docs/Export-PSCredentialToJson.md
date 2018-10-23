@@ -20,7 +20,7 @@ Export-PSCredentialToJson [-Path] <String> -Credential <PSCredential> [-NoClobbe
 
 This command will take a PSCredential object and export it to a JSON file. The password will be converted from a secure string using native Windows crypto APIs. The converted password can only be re-converted on the original computer. The export process will also capture metadata information including the credential of the user who ran the export and the computername.
 
-The user name will still be in plain text so you should take the necessary steps to safeguard this file. 
+The user name will still be in plain text so you should take the necessary steps to safeguard this file.
 
 NOTE: Storing any sort of credential to disk is a potential security risk and may not be approved in every organization. Use with caution and at your own risk.
 
@@ -143,7 +143,6 @@ Accept wildcard characters: False
 ## INPUTS
 
 ### System.Management.Automation.PSCredential
-
 
 ## OUTPUTS
 

@@ -1,8 +1,13 @@
-# Changelog for PSJsonCredential
+# Change log for PSJsonCredential
+
+## v1.3.1
+
++ file cleanup for the PowerShell Gallery
++ Updated `README.md`
 
 ## v1.3.0
 
-+ Added parameter validation to `Path` in `Export-PSCredentialToJson` for .json extension
++ Added parameter validation to `Path` in `Export-PSCredentialToJson` for .json extension.
 + Fixed a new bug with an apparent change in `ConvertFrom-Json`. Password value was no longer a simple string.
 + Code cleanup
 
