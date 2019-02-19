@@ -86,7 +86,7 @@ PSM@g1ck
 
 The commands use the secure string convert cmdlets. These cmdlet rely on Windows crypto APIs to properly convert a secure string. The converted string can only be decrypted on the original computer. If the file is copied to another computer, the `ConvertTo-SecureString` command will fail. 
 
-Because the json file is a plain text file, the user name will be visible. You should still take precautions to secure the json file.
+Because the json file is a plain text file, the user and computer name will be visible. You should still take precautions to secure and protect the json file.
 
 ### Important!
 
