@@ -92,4 +92,4 @@ Storing any credential to disk poses a potential security risk. It is up to you 
 
 #### *Use with caution and at your own risk.*
 
-*Last updated 19 February 2019*
+*Last updated 20 February 2019*

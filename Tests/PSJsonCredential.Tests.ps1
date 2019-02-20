@@ -4,6 +4,9 @@
 
 $modroot = Split-Path (Split-path $MyInvocation.MyCommand.Path)
 
+if (Get-Module PSJsonCredential) {
+    Remove-Module PSJsonCredential
+}
 Write-host "Importing moduling from $modroot" -ForegroundColor Cyan
 
 Import-Module $modRoot -force

@@ -1,5 +1,10 @@
 # Change Log for PSJsonCredential
 
+## v2.1.0
+
++ fixed metadata bug on non-Windows platforms (Issue #4)
++ Minor Pester test correction
+
 ## v2.0.0
 
 + Updated manifest to support Desktop and Core PSEditions

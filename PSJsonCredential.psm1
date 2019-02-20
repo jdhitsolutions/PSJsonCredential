@@ -46,8 +46,8 @@ Process {
         if ( -not $NoMetadata) {
             $meta =  [pscustomobject]@{
                 ExportDate = (Get-Date).Tostring()
-                ExportUser = "$($env:userdomain)\$($env:username)"
-                ExportComputer = $env:COMPUTERNAME
+                ExportUser = "$([system.environment]::UserDomainName)\$([system.environment]::username)"
+                ExportComputer = [System.Environment]::MachineName
             }
             $content | Add-Member -MemberType NoteProperty -Name Metadata -value $meta
         } #if -not metadata
