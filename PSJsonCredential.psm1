@@ -12,39 +12,54 @@ Param(
 [Parameter(Mandatory,ValueFromPipeline)]
 [ValidateNotNullorEmpty()]
 [PSCredential]$Credential,
+[Parameter(Mandatory,HelpMessage = "Enter a key password or passphrase of length 16, 24 or 32.")]
+[ValidateScript({ $_.length -eq 16 -OR $_.length -eq 24 -OR $_.length -eq 32})]
+[string]$Key,
 [Switch]$NoClobber,
+[Parameter(HelpMessage = "Do not include metadata in the json file")]
+[switch]$NoMetadata,
 [switch]$Passthru
 )
 
 Begin {
-    Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.Mycommand)"  
+    Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.Mycommand)"
     Write-Verbose "[BEGIN  ] Exporting credential to $Path"
 } #begin
 
 Process {
     Write-Verbose "[PROCESS] Processing credential for $($credential.UserName)"
-    
+
     if ($NoClobber -AND (Test-Path -Path $path)) {
         Write-Warning "$path already exists and NoClobber specified."
         #bail out out
         Return
      }
-    
+
+     Write-Verbose "[PROCESS] Preparing key with a length of $($key.length)"
+     $secret = [system.text.encoding]::UTF8.GetBytes($key)
+
     Try {
 
-        #create a custom object from the credential and convert it to JSON    
-        $json = $Credential | Select-Object Username,@{Name="Password";
-        Expression = { $_.password | ConvertFrom-SecureString }},
-        @{Name="metadata";Expression={ [pscustomobject]@{
-            ExportDate = (Get-Date).Tostring()
-            ExportUser = "$($env:userdomain)\$($env:username)"
-            ExportComputer = $env:COMPUTERNAME
+        #create a custom object from the credential and convert it to JSON
+        $content = $Credential | Select-Object Username,@{Name="Password";
+        Expression = { $_.password | ConvertFrom-SecureString -key $secret }}
+        if ( -not $NoMetadata) {
+            $meta =  [pscustomobject]@{
+                ExportDate = (Get-Date).Tostring()
+                ExportUser = "$($env:userdomain)\$($env:username)"
+                ExportComputer = $env:COMPUTERNAME
+            }
+            $content | Add-Member -MemberType NoteProperty -Name Metadata -value $meta
+        } #if -not metadata
+        else {
+            Write-Verbose "[PROCESS] Excluding metadata"
         }
-        }} | ConvertTo-Json -ErrorAction Stop 
-        
+
+        $json = $content | ConvertTo-Json -ErrorAction Stop
+
         if ($PSCmdlet.ShouldProcess($path,"Create json Credential File")) {
             $json | Set-Content -Path $Path -ErrorAction Stop
-            
+
                 if ($Passthru ) {
                     Get-Item -Path $path
                 }
@@ -76,20 +91,26 @@ if (Test-Path $_) {
 else {
    Throw "Cannot validate path $_"
 }
-})]      
-[string]$Path
+})]
+[string]$Path,
+[Parameter(Mandatory,HelpMessage = "Enter a key password or passphrase of length 16, 24 or 32.")]
+[ValidateScript({$_.length -eq 16 -OR $_.length -eq 24 -OR $_.length -eq 32})]
+[string]$Key
 )
 
 Begin {
-    Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.Mycommand)"  
-   
+    Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.Mycommand)"
+
 } #begin
 
 Process {
     Write-Verbose "[PROCESS] Processing credential from $Path"
     #read in the json file and convert it to an object
     $in = Get-Content -Path $path | ConvertFrom-Json
-    
+
+`   Write-Verbose "[PROCESS] Preparing key with a length of $($key.length)"
+    $secret = [system.text.encoding]::UTF8.GetBytes($key)
+
     Try {
         Write-Verbose "[PROCESS] Converting to System.Security.SecureString"
         #depending on the version of Convert-fromJson the converted password might
@@ -100,7 +121,7 @@ Process {
         else {
             $Value = $in.Password
         }
-        $secure = ConvertTo-SecureString $Value -ErrorAction Stop
+        $secure = ConvertTo-SecureString -string $Value -key $secret -ErrorAction Stop
     }
     Catch {
         Write-Warning $_.exception.message
@@ -133,17 +154,17 @@ if (Test-Path $_) {
 else {
    Throw "Cannot validate path $_"
 }
-})]      
+})]
 [string]$Path
 )
 
 Begin {
-    Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.Mycommand)"     
+    Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.Mycommand)"
 } #begin
 
 Process {
     Write-Verbose "[PROCESS] Processing credential from $Path"
-    
+
     #read in the json file and convert it to an object
     $in = Get-Content -Path $path | ConvertFrom-Json
     $in | Select-Object Username,Password,
@@ -151,7 +172,7 @@ Process {
     @{Name = "ExportUser";Expression = {$_.metadata.ExportUser}},
     @{Name = "ExportComputer";Expression = {$_.metadata.ExportComputer}},
     @{Name = "Path";Expression = { (Convert-Path -Path $Path) }}
-    
+
     } #process
 
 End {

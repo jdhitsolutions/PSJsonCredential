@@ -1,6 +1,6 @@
 # PSJsonCredential
 
-This PowerShell module contains a set of functions for storing a PSCredential object in a JSON file. This will only work on Windows-based systems.
+This PowerShell module contains a set of functions for storing a PSCredential object in a JSON file. Previous versions of this module relied on the CryptoAPI which limited it to Windows platforms only. This version uses a user defined key to convert the password to a secure string that can be stored in the json file. The module should now work in Windows PowerShell and PowerShell Core.
 
 ## Release
 
@@ -12,15 +12,17 @@ PS C:\> Install-Module PSJsonCredential
 
 ## Why?
 
-You can achieve similar results using the [Export-CliXML](http://go.microsoft.com/fwlink/?LinkId=821767) and [Import-Clixml](http://go.microsoft.com/fwlink/?LinkId=821813) cmdlets. The resulting XML files are slightly larger in size and the conversion is slightly longer, but only by a few milliseconds. I merely wanted to provide an alternative file format and json is a popular option these days.
+You can achieve similar results using the [Export-CliXML](http://go.microsoft.com/fwlink/?LinkId=821767) and [Import-Clixml](http://go.microsoft.com/fwlink/?LinkId=821813) cmdlets. But those techniques rely on the CryptoAPI and are limited to Windows platforms. The files can also only be used on the computer where they were created any by the original user. Earlier versions of this module relied on these techniques.
+
+The current version of the module relies on a user-defined key which you can think of as a password or passphrase. You need to know the key to export and import the credential. This has an added benefit of making the json file portable between computers.
 
 ## Usage
 
-You can pipe any PSCredential object to `Export-PSCredentialToJson`.
+You can pipe any PSCredential object to [Export-PSCredentialToJson](Docs/Export-PSCredentialToJson.md).
 
 ```powershell
 PS C:\> $cred = Get-Credential Company\Administrator
-PS C:\> $cred | Export-PSCredentialToJson -Path c:\work\admin.json
+PS C:\> $cred | Export-PSCredentialToJson -Path c:\work\admin.json -key "I am the walrus!"
 ```
 
 The export process will also capture metadata information about who converted the credential.
@@ -28,49 +30,45 @@ The export process will also capture metadata information about who converted th
 ```powershell
 PS C:\> get-content C:\work\admin.json
 {
-    "UserName":  "Company\\Administrator",
-    "Password":  "01000000d08c9ddf0115d1118c7a00c04fc297eb010000001368e9622137b247acf0b7a1a65648c8000000
-000200000000001066000000010000200000003a58b21348a5b9560ef88dd463138c72561a6e1413437335da951cffa033a9d800
-0000000e800000000200002000000033e9e6bc17a4a420b2e7bc621ced2ac8f04ef3c11f33219670b6463facc3058b2000000079
-59c03f0cb78b8b9c047a80658701231561193ed8624a5d0769b527bd7026ab400000005346e70d38eeffc2031564eea669d9db98
-3a65acbb4bbfc27b9715056eeb42b083badca75687b6feb89794c7570cf565758295cb2fae4fdc98d332601c96e270",
-    "metadata":  {
-                     "ExportDate":  "12/24/2017 10:33:31 AM",
-                     "ExportUser":  "Company\\Jeff",
-                     "ExportComputer":  "WIN10-ENT-01"
-                 }
+  "UserName": "company\\administrator",
+  "Password": {
+    "value": "76492d1116743f0423413b16050a5345MgB8AEUARwBrAHAASABwAE8AdgBOAEgAWgA2AHkAWAA4AEYANgA4AEkAVQBKAEEAPQA9AHwAZQAzADAAMAA1ADEAOQAzADEANAA0AGIAYQA3AGEAOQBmAGMAZQAwADQANAAzADMAOAAxADEAMgA5ADAAMABkADkANwAzADAAZgAzADcAYgA0AGYAZQBiAGUANQBhADAAMgBmADEAZABkAGUAZQBjADMAZAA2AGYAYQA5AGUAMQA="
+    },
+  "Metadata": {
+    "ExportDate": "2/19/2019 7:54:02 PM",
+    "ExportUser": "DESK10\\Jeff",
+    "ExportComputer": "DESK10"
+  }
 }
 ```
 
-You can "get" the credential from the JSON file but without converting the password.
+You can "get" the credential from the JSON file but without converting the password with [Get-PSCredentialFromJson](Docs/Get-PSCredentialFromJson.md)
 
 ```powershell
 PS C:\> Get-PSCredentialFromJson -Path C:\work\admin.json
 
 
-UserName       : Company\Administrator
-Password       : 01000000d08c9ddf0115d1118c7a00c04fc297eb010000001368e9622137b247acf0b7a1a65648c8000000
-                    000200000000001066000000010000200000003a58b21348a5b9560ef88dd463138c72561a6e1413437335
-                    da951cffa033a9d8000000000e800000000200002000000033e9e6bc17a4a420b2e7bc621ced2ac8f04ef3
-                    c11f33219670b6463facc3058b200000007959c03f0cb78b8b9c047a80658701231561193ed8624a5d0769
-                    b527bd7026ab400000005346e70d38eeffc2031564eea669d9db983a65acbb4bbfc27b9715056eeb42b083
-                    badca75687b6feb89794c7570cf565758295cb2fae4fdc98d332601c96e270
-ExportDate     : 12/24/2017 10:33:31 AM
-ExportUser     : Company\Jeff
-ExportComputer : WIN10-ENT-01
-Path           : C:\work\admin.json
+UserName       : company\administrator
+Password       : @{value=76492d1116743f0423413b16050a5345MgB8AEUARwBrAHAASABwAE8AdgBOAEgAWgA2AHkAWAA4AEYANgA4AEkAVQBKAE
+                 EAPQA9AHwAZQAzADAAMAA1ADEAOQAzADEANAA0AGIAYQA3AGEAOQBmAGMAZQAwADQANAAzADMAOAAxADEAMgA5ADAAMABkADkANwAz
+                 ADAAZgAzADcAYgA0AGYAZQBiAGUANQBhADAAMgBmADEAZABkAGUAZQBjADMAZAA2AGYAYQA5AGUAMQA=; Size=276;
+                 IsEmail=False}
+ExportDate     : 2/19/2019 7:54:02 PM
+ExportUser     : DESK10\Jeff
+ExportComputer : DESK10
+Path           : C:\scripts\admin.json
 ```
 
-And when you are ready you can import the credential.
+And when you are ready you can import the credential using [Import-PSCredentialFromJson](Docs/Import-PSCredentialFromJson.md)
 
 ```powershell
-PS C:\> $in = Import-PSCredentialFromJson -Path C:\work\admin.json -Verbose
+PS C:\> $in = Import-PSCredentialFromJson -Path C:\scripts\admin.json -Verbose -key "I am the walrus!"
 VERBOSE: [BEGIN  ] Starting: Import-PSCredentialFromJson
-VERBOSE: [PROCESS] Processing credential from C:\work\admin.json
+VERBOSE: [PROCESS] Processing credential from C:\scripts\admin.json
+VERBOSE: [PROCESS] Preparing key with a length of 16
 VERBOSE: [PROCESS] Converting to System.Security.SecureString
-VERBOSE: [PROCESS] Creating credential for Company\Administrator
+VERBOSE: [PROCESS] Creating credential for company\administrator
 VERBOSE: [END    ] Ending: Import-PSCredentialFromJson
-
 PS C:\> $in
 
 UserName                                  Password
@@ -79,12 +77,12 @@ Company\Administrator System.Security.SecureString
 
 
 PS C:\> $in.GetNetworkCredential().password
-PSM@g1ck
+P@ssw04d
 ```
 
 ## Is It Safe?
 
-The commands use the secure string convert cmdlets. These cmdlet rely on Windows crypto APIs to properly convert a secure string. The converted string can only be decrypted on the original computer. If the file is copied to another computer, the `ConvertTo-SecureString` command will fail. 
+The commands use the secure string convert cmdlets. The password is encoded with a user-defined key which can be a password or phrase of length 16, 24 or 32. Any password stored to disk is a potential security risk.
 
 Because the json file is a plain text file, the user and computer name will be visible. You should still take precautions to secure and protect the json file.
 
@@ -94,4 +92,4 @@ Storing any credential to disk poses a potential security risk. It is up to you 
 
 #### *Use with caution and at your own risk.*
 
-*Last updated 23 October 2018*
+*Last updated 19 February 2019*

@@ -1,5 +1,6 @@
 ---
 external help file: PSJsonCredential-help.xml
+Module Name: PSJsonCredential
 online link: https://github.com/jdhitsolutions/PSJsonCredential/blob/master/Docs/Export-PSCredentialToJson.md
 schema: 2.0.0
 ---
@@ -13,14 +14,14 @@ Export a PSCredential to a JSON file
 ## SYNTAX
 
 ```yaml
-Export-PSCredentialToJson [-Path] <String> -Credential <PSCredential> [-NoClobber] [-Passthru] [-WhatIf] [-Confirm]
+Export-PSCredentialToJson [-Path] <String> -Credential <PSCredential> -Key <String> [-NoClobber] [-NoMetadata] [-Passthru] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-This command will take a PSCredential object and export it to a JSON file. The password will be converted from a secure string using native Windows crypto APIs. The converted password can only be re-converted on the original computer. The export process will also capture metadata information including the credential of the user who ran the export and the computername.
+This command will take a PSCredential object and export it to a JSON file. The password will be converted from a secure string using a user specified key. The converted password can only be re-converted using the key. The export process will also capture metadata information including the credential of the user who ran the export and the computername, although this is an optional process.
 
-The user name will still be in plain text so you should take the necessary steps to safeguard this file.
+The user and computer name will still be in plain text so you should take the necessary steps to safeguard this file. Running this command is merely the first step.
 
 NOTE: Storing any sort of credential to disk is a potential security risk and may not be approved in every organization. Use with caution and at your own risk.
 
@@ -29,18 +30,30 @@ NOTE: Storing any sort of credential to disk is a potential security risk and ma
 ### Example 1
 
 ```powershell
-PS C:\> Export-PSCredentialToJson -path c:\scripts\admin.json -credential "company\administrator"
+PS C:\> Export-PSCredentialToJson -path c:\scripts\admin.json -credential "company\administrator" -key "I am the walrus!"
+PS C:\> Get-Content c:\scripts\admin.json
+
+{
+  "UserName": "company\\administrator",
+  "Password": {
+    "value": "76492d1116743f0423413b16050a5345MgB8AEUARwBrAHAASABwAE8AdgBOAEgAWgA2AHkAWAA4AEYANgA4AEkAVQBKAEEAPQA9AHwAZQAzADAAMAA1ADEAOQAzADEANAA0AGIAYQA3AGEAOQBmAGMAZQAwADQANAAzADMAOAAxADEAMgA5ADAAMABkADkANwAzADAAZgAzADcAYgA0AGYAZQBiAGUANQBhADAAMgBmADEAZABkAGUAZQBjADMAZAA2AGYAYQA5AGUAMQA="},
+  "Metadata": {
+    "ExportDate": "2/19/2019 7:54:02 PM",
+    "ExportUser": "DESK10\\Jeff",
+    "ExportComputer": "DESK10"
+  }
+}
 ```
 
-Create a json file in the Scripts folder for the company\administrator credential. You will be prompted for the password.
+Create a json file in the Scripts folder for the company\administrator credential. You will be prompted for the password. The password will be converted to a secure string using the specified key.
 
 ### Example 2
 
 ```powershell
-PS C:\> $cred | Export-PSCredentialToJson -path c:\scripts\mycred.json
+PS C:\> $cred | Export-PSCredentialToJson -path c:\scripts\admin.json -key "Apples and Oranges are the same." -nometadata
 ```
 
-Pipe a previously created PSCredential to the export command.
+Pipe a previously created PSCredential to the export command without any metadata such as the export date or user.
 
 ## PARAMETERS
 
@@ -67,7 +80,7 @@ A PSCredential object.
 ```yaml
 Type: PSCredential
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: True
 Position: Named
@@ -83,7 +96,7 @@ Do not overwrite an existing file.
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -99,7 +112,7 @@ Display the json file object.
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -115,7 +128,7 @@ Enter the name and path for the JSON file.
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: True
 Position: 0
@@ -139,6 +152,42 @@ Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
+
+### -Key
+
+Enter a key password or passphrase of length 16, 24 or 32.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -NoMetadata
+
+Do not include metadata in the json file.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### CommonParameters
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

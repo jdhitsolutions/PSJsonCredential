@@ -1,4 +1,14 @@
-# Change log for PSJsonCredential
+# Change Log for PSJsonCredential
+
+## v2.0.0
+
++ Updated manifest to support Desktop and Core PSEditions
++ Modified commands to use a Key to secure password and not rely on the Crypto API
++ Made metadata optional on `Export-PSCredentialToJson`
++ Updated help
++ Updated `README.md`
++ Updated Pester tests
++ Removed online help download links
 
 ## v1.3.1
 

@@ -1,7 +1,7 @@
 ---
 Module Name: PSJsonCredential
 Module Guid: a582b122-80fd-4fcb-8c01-5520737530c9
-Download Help Link: https://github.com/jdhitsolutions/PSJsonCredential/blob/master/help/psjsoncredential_a582b122-80fd-4fcb-8c01-5520737530c9_en-US_helpcontent.cab
+Download Help Link:
 Help Version: 1.0.0.0
 Locale: en-US
 ---
