@@ -1,5 +1,8 @@
 # PSJsonCredential
 
+[![PSGallery Version](https://img.shields.io/powershellgallery/v/PSJsonCredential.png?style=for-the-badge&logo=powershell&label=PowerShell%20Gallery)](https://www.powershellgallery.com/packages/PSJsonCredential/) [![PSGallery Downloads](https://img.shields.io/powershellgallery/dt/PSJsonCredential.png?style=for-the-badge&label=Downloads)](https://www.powershellgallery.com/packages/PSJsonCredential/)
+
+
 This PowerShell module contains a set of functions for storing a PSCredential object in a JSON file. Previous versions of this module relied on the CryptoAPI which limited it to Windows platforms only. This version uses a user defined key to convert the password to a secure string that can be stored in the json file. The module should now work in Windows PowerShell and PowerShell Core.
 
 ## Release
