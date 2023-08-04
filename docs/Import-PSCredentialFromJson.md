@@ -1,7 +1,7 @@
 ---
 external help file: PSJsonCredential-help.xml
 Module Name: PSJsonCredential
-online link: https://github.com/jdhitsolutions/PSJsonCredential/blob/master/Docs/Import-PSCredentialFromJson.md
+online link:
 schema: 2.0.0
 ---
 
@@ -14,19 +14,23 @@ Import a stored credential from a JSON file.
 ## SYNTAX
 
 ```yaml
-Import-PSCredentialFromJson [-Path] <String> -Key <String> [<CommonParameters>]
+Import-PSCredentialFromJson [-Path] <String> -Key <SecureString> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-This command will import a stored PSCredential object from a JSON file. It is assumed the JSON file was created with Export-PSCredentialtoJSON. You will need to specify the same key used to export the credential.
+This command will import a stored PSCredential object from a JSON file. It is assumed the JSON file was created with Export-PSCredentialToJSON. You will need to specify the same key used to export the credential.
 
 ## EXAMPLES
 
 ### Example 1
 
 ```powershell
-PS C:\> Import-PSCredentialFromJson -Path c:\scripts\admin.json -key "I am the walrus!"
+PS C:\> $skey = Read-Host "Enter a 16 character key" -asSecureString
+Enter a 16 character key: ****************
+PS C:\> $skey.Length
+16
+PS C:\> Import-PSCredentialFromJson -Path c:\scripts\admin.json -key $skey
 
 UserName                                  Password
 --------                                  --------
@@ -58,7 +62,7 @@ Accept wildcard characters: False
 Enter a key password or passphrase of length 16, 24 or 32. This will need to be the same key used to export the credential.
 
 ```yaml
-Type: String
+Type: SecureString
 Parameter Sets: (All)
 Aliases:
 
@@ -71,7 +75,7 @@ Accept wildcard characters: False
 
 ### CommonParameters
 
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
@@ -87,12 +91,10 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 
 ## RELATED LINKS
 
-[http://bit.ly/Import-PSCredentialJson]()
+[Export-PSCredentialToJson](Export-PSCredentialToJson.md)
+
+[Get-PSCredentialFromJson](Get-PSCredentialFromJson.md)
 
 [Get-Credential]()
 
 [ConvertFrom-SecureString]()
-
-[Export-PSCredentialtoJson](Export-PSCredentialToJson.md)
-
-[Get-PSCredentialFromJson](Get-PSCredentialFromJson.md)

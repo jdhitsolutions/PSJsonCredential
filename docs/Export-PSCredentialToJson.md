@@ -1,7 +1,7 @@
 ---
 external help file: PSJsonCredential-help.xml
 Module Name: PSJsonCredential
-online link: https://github.com/jdhitsolutions/PSJsonCredential/blob/master/Docs/Export-PSCredentialToJson.md
+online link:
 schema: 2.0.0
 ---
 
@@ -13,8 +13,16 @@ Export a PSCredential to a JSON file
 
 ## SYNTAX
 
+### noMetadata
+
 ```yaml
-Export-PSCredentialToJson [-Path] <String> -Credential <PSCredential> -Key <String> [-NoClobber] [-NoMetadata] [-Passthru] [-WhatIf] [-Confirm] [<CommonParameters>]
+Export-PSCredentialToJson [-Path] <String> -Credential <PSCredential> -Key <SecureString> [-EncryptUserName] [-NoClobber] [-NoMetadata] [-PassThru] [-WhatIf] [-Confirm] [<CommonParameters>]
+```
+
+### metadata
+
+```yaml
+Export-PSCredentialToJson [-Path] <String> -Credential <PSCredential> -Key <SecureString> [-EncryptUserName] [-NoClobber] [-Comment <String>] [-PassThru] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -30,7 +38,11 @@ NOTE: Storing any sort of credential to disk is a potential security risk and ma
 ### Example 1
 
 ```powershell
-PS C:\> Export-PSCredentialToJson -path c:\scripts\admin.json -credential "company\administrator" -key "I am the walrus!"
+PS C:\> $skey = Read-Host "Enter a 16 character key" -asSecureString
+Enter a 16 character key: ****************
+PS C:\> $skey.Length
+16
+PS C:\> Export-PSCredentialToJson -path c:\scripts\admin.json -credential "company\administrator" -key $skey
 PS C:\> Get-Content c:\scripts\admin.json
 
 {
@@ -38,9 +50,10 @@ PS C:\> Get-Content c:\scripts\admin.json
   "Password": {
     "value": "76492d1116743f0423413b16050a5345MgB8AEUARwBrAHAASABwAE8AdgBOAEgAWgA2AHkAWAA4AEYANgA4AEkAVQBKAEEAPQA9AHwAZQAzADAAMAA1ADEAOQAzADEANAA0AGIAYQA3AGEAOQBmAGMAZQAwADQANAAzADMAOAAxADEAMgA5ADAAMABkADkANwAzADAAZgAzADcAYgA0AGYAZQBiAGUANQBhADAAMgBmADEAZABkAGUAZQBjADMAZAA2AGYAYQA5AGUAMQA="},
   "Metadata": {
-    "ExportDate": "2/19/2019 7:54:02 PM",
-    "ExportUser": "DESK10\\Jeff",
-    "ExportComputer": "DESK10"
+    "ExportDate": "7/19/2023 7:54:02 PM",
+    "ExportUser": "DESK11\\Jeff",
+    "ExportComputer": "DESK11"
+    "Comment": ""
   }
 }
 ```
@@ -50,10 +63,30 @@ Create a json file in the Scripts folder for the company\administrator credentia
 ### Example 2
 
 ```powershell
-PS C:\> $cred | Export-PSCredentialToJson -path c:\scripts\admin.json -key "Apples and Oranges are the same." -nometadata
+PS C:\> $cred | Export-PSCredentialToJson -Comment "pizza pizza" -Path d:\export\j1987.json -Key $skey
+PS C:\> Get-PSCredentialFromJson d:\export\j1987.json
+
+
+Username       : company\jeff
+Password       : 76492d1116743f0423413b16050a5345MgB8AHEAYQArAFgATwBvAGUALwBDAGo
+                 AcQBRADIAZwBsAHcATgAxAEEARQBxAHcAPQA9AHwAMgAzAGQAMQAyADYAOAAxADgAYgA1AGQAYgAyAGYAOQA4ADAAMwAxAGUAOABmADgAOABjADkAMgAwADAAYQBjADcANwAxAGYAZgBjADkAZABiADkAOAA1AGQAMQAxADQAYQA3AGMAOAAzADQAYgA2
+                 AGYAOAA5ADQAZgBjAGMAMwA=
+ExportDate     : 8/4/2023 10:10:53 AM
+ExportUser     : DESK11\Jeff,
+ExportComputer : DESK11
+Comment        : pizza pizza
+Path           : D:\export\j1987.json
 ```
 
-Pipe a previously created PSCredential to the export command without any metadata such as the export date or user.
+Export the credential with an optional comment.
+
+### Example 3
+
+```powershell
+PS C:\> $cred | Export-PSCredentialToJson -EncryptUserName -path c:\scripts\admin.json -key $skey -NoMetadata
+```
+
+Pipe a previously created PSCredential to the export command without any metadata such as the export date or user. The username will also be encrypted in the JSON file.
 
 ## PARAMETERS
 
@@ -105,22 +138,6 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Passthru
-
-Display the json file object.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -Path
 
 Enter the name and path for the JSON file.
@@ -158,7 +175,7 @@ Accept wildcard characters: False
 Enter a key password or passphrase of length 16, 24 or 32.
 
 ```yaml
-Type: String
+Type: SecureString
 Parameter Sets: (All)
 Aliases:
 
@@ -175,6 +192,54 @@ Do not include metadata in the json file.
 
 ```yaml
 Type: SwitchParameter
+Parameter Sets: noMetadata
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -PassThru
+
+Display the json file object.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Comment
+
+Include an optional comment in the metadata. This might be a reference to the user name or a hint to the key.
+
+```yaml
+Type: String
+Parameter Sets: metadata
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -EncryptUserName
+
+Encrypt the user name as a secure string.
+
+```yaml
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 
@@ -187,7 +252,7 @@ Accept wildcard characters: False
 
 ### CommonParameters
 
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
@@ -205,14 +270,10 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 
 ## RELATED LINKS
 
-[http://bit.ly/Export-PSCredentialJson]()
-
-[Get-Credential]()
-
-[ConvertFrom-SecureString]()
-
 [Import-PSCredentialFromJson](Import-PSCredentialFromJson.md)
 
 [Get-PSCredentialFromJson](Get-PSCredentialFromJson.md)
 
-[https://msdn.microsoft.com/en-us/library/system.management.automation.pscredential(v=vs.85).aspx]()
+[Get-Credential]()
+
+[ConvertFrom-SecureString]()

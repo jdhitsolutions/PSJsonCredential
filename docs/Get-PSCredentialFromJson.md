@@ -1,6 +1,6 @@
 ---
 external help file: PSJsonCredential-help.xml
-online link: https://github.com/jdhitsolutions/PSJsonCredential/blob/master/Docs/Get-PSCredentialFromJson.md
+online link:
 schema: 2.0.0
 ---
 
@@ -27,15 +27,22 @@ This command will retrieve credential information from a JSON file created with 
 ```powershell
 PS C:\> Get-PSCredentialFromJson -path c:\scripts\admin.json
 
-UserName       : company\administrator
-Password       : @{
-                 value=76492d1116743f0423413b16050a5345MgB8AEUARwBrAHAASABwAE8AdgBOAEgAWgA2AHkAWAA4AEYANgA4AEkAVQBKAEEAPQA9AHwAZQAzADAAMAA1ADEAOQAzADEANAA0AGIAYQA3AGEAOQBmAGMAZQAwADQANAAzADMAOAAxADEAMgA5ADAAMABkADkANwAzADAAZgAzADcAYgA0AGYAZQBiAGUANQBhADAAMgBmADEAZABkAGUAZQBjADMAZAA2AGYAYQA5AGUAMQA=
-                 }
-ExportDate     : 2/19/2019 7:54:02 PM
-ExportUser     : DESK10\Jeff
-ExportComputer : DESK10
-Path           : C:\scripts\admin.json
+   Path: C:\scripts\admin.json
+
+
+Username       : company\administrator
+Password       : 76492d1116743f0423413b16050a5345MgB8AEwAcAB3AGoARABOAGk
+                 AbABKAFgARAB6AEEAUQBPADYAVwBPAHgAZgB1AEEAPQA9AHwAYwA0AG
+                 MAZgAyAGMAYQBjAGEAMQBlAGMAMQBhADgAOQAwADAANgBkADgAYgA3A
+                 DMANgA4AGUAZABiADUAOAA0AGYANgA3ADYAYgBlAGYAOAA0AGUAOQBl
+                 ADIAOAAwADcANQBjADgAYwA1AGUAMQBhAGMANgBhADAAYgBkADIAYgA=
+ExportDate     : 8/2/2023 12:53:32 PM
+ExportUser     : COMPANY\Jeff
+ExportComputer : DESK11
+Comment        :
 ```
+
+There is also a named list view called nometa which will suppress the Export properties.
 
 ## PARAMETERS
 
@@ -61,7 +68,7 @@ Accept wildcard characters: False
 
 ## OUTPUTS
 
-### System.Object
+### psJSONCredential
 
 ## NOTES
 
@@ -69,11 +76,9 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 
 ## RELATED LINKS
 
-[http://bit.ly/Get-PScredentialJson]()
-
 [Import-PSCredentialFromJson](Import-PSCredentialFromJson.md)
 
-[Export-PSCredentialtoJson](Export-PSCredentialtoJson.md)
+[Export-PSCredentialToJson](Export-PSCredentialtoJson.md)
 
 [Get-Credential]()
 
